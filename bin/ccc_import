@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+
+"""
+CCC Command Line Client.
+Usage:
+    ccc_import publish_batch --authToken=<AUTH_TOKEN> --tsv=<TSV> --siteId=<SITE_ID> --user=<USER> --projectCode=<PROJECT_NAME> --domain=<DOMAIN> [--mock]
+    ccc_import publish_resource --authToken=<AUTH_TOKEN> --filePath=<FILE> --siteId=<SITE_ID> --user=<USER> --projectCode=<PROJECT_NAME> --workflowId=<WORKFLOW_ID> --mimeType=<MIME_TYPE> [--inheritFrom=<CCC_DID>] --property <ATTR>... [--mock]
+    ccc_import (-h | --help)
+    ccc_import --version
+
+Oprions:
+    -h, --help                                       Show this screen.
+    -v, --version                                    Show version.
+    -t <AUTH_TOKEN>, --authToken=<AUTH_TOKEN>                      The token that will be used when POSTing to elastic search and central function
+    -d <DOMAIN>, --domain=<DOMAIN>                   When querying, the target domain.  Allowable values are: individual, specimen, sample, resource.
+    -t <TSV>, --tsv=<TSV>                            The input tab delimited file
+    -s <SITE_ID>, --siteId=<SITE_ID>                 The site ID to be used when publishing results
+    -u <USER>, --user=<USER>                         The user to be used when publishing results
+    -p <PROJECT_NAME>, --projectCode=<PROJECT_NAME>  The project name to be used when publishing results
+    -f --filePath <FILE>                             The file path of the resource to publish
+    -w --workflowId <WORKFLOW_ID>                    The ID of the workflow associated with the resource
+    --mimeType <MIME_TYPE>                           The mimetype of the resource
+    --inheritFrom <CCC_DID>                          If provided, the fields of this existing record will be queried and applied to the incoming resource.  Any values provided using --property will override these.
+    --property <ATTR>                                One or more fields to apply to the incoming resource.  The values should be supplied in the form "FieldName:Value".
+    -m --mock                                        Perform a mock operation, which runs your input through the normal code path, but outputs the JSON that would otherwise be posted to elasticsearch, without actually sending it
+
+"""
+
+import sys, os
+from docopt import docopt
+from CCC import __version__ as version
+from CCC import CCC_Client
+
+if __name__ == "__main__":
+    arguments = docopt(__doc__, version="CCC Command Line Client {0}".format(version), options_first=False)
+    #print(arguments)
+    client = CCC_Client(arguments['--token'])
+
+    if arguments['query']:
+        client.query(arguments['--domain'], arguments['--query'], arguments['--output'])
+    elif arguments['publish_resource']:
+        client.publish_resource(arguments['--filePath'], arguments['--siteId'], arguments['--user'], arguments['--projectCode'], arguments['--workflowId'], arguments['--mimeType'], 'resource', arguments['--inheritFrom'], arguments['--property'], arguments['--mock'])
+    elif arguments['publish_batch']:
+        client.publish_batch(arguments['--tsv'], arguments['--siteId'], arguments['--user'], arguments['--projectCode'], arguments['--domain'], arguments['--mock'])
+    else:
+        raise RuntimeError("Command must be one of: query, publish, publish_batch or merge")
