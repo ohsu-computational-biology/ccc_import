@@ -13,7 +13,7 @@ dir_path = os.path.dirname(path)
 dir_path = os.path.dirname(dir_path)
 sys.path.append(dir_path)
 
-from CCC import CCC_Client
+import ccc_client
 
 class TestCccClient(unittest.TestCase):
 
@@ -102,8 +102,8 @@ class TestCccClient(unittest.TestCase):
 
     def test_unit_index_names(self):
         token = self.generateAuthToken()
-        ccc = CCC_Client(token)
-        rp = CCC_Client.RowParser(None, self.getSiteId(), self.getUser(), self.getProject(), 'resource', None, ccc.DomainDescriptors, token, True)
+        ccc = ElasticSearchRunner(None, None, token)
+        rp = ElasticSearchRunner.RowParser(None, self.getSiteId(), self.getUser(), self.getProject(), 'resource', None, ccc.DomainDescriptors, token, True)
 
         #index names
         self.assertEqual(rp.getIndexNameForDomain('resource'), self.getProject().lower() + '-' + 'aggregated-resource')

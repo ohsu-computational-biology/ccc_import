@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-CCC Command Line Client.
+CCC Import Command Line Client.
 Usage:
     ccc_import publish_batch --authToken=<AUTH_TOKEN> --tsv=<TSV> --siteId=<SITE_ID> --user=<USER> --projectCode=<PROJECT_NAME> --domain=<DOMAIN> [--mock]
     ccc_import publish_resource --authToken=<AUTH_TOKEN> --filePath=<FILE> --siteId=<SITE_ID> --user=<USER> --projectCode=<PROJECT_NAME> --workflowId=<WORKFLOW_ID> --mimeType=<MIME_TYPE> [--inheritFrom=<CCC_DID>] --property <ATTR>... [--mock]
@@ -28,19 +28,16 @@ Oprions:
 
 import sys, os
 from docopt import docopt
-from CCC import __version__ as version
-from CCC import CCC_Client
+import ccc_client
 
 if __name__ == "__main__":
-    arguments = docopt(__doc__, version="CCC Command Line Client {0}".format(version), options_first=False)
-    #print(arguments)
-    client = CCC_Client(arguments['--token'])
+    arguments = docopt(__doc__, version="CCC Command Line Client {0}".format(0.1), options_first=False)
+    #TODO: consider reading host/port from command line or using environment vars
+    client = ElasticSearchRunner(None, None, arguments['--token'])
 
-    if arguments['query']:
-        client.query(arguments['--domain'], arguments['--query'], arguments['--output'])
-    elif arguments['publish_resource']:
+    if arguments['publish_resource']:
         client.publish_resource(arguments['--filePath'], arguments['--siteId'], arguments['--user'], arguments['--projectCode'], arguments['--workflowId'], arguments['--mimeType'], 'resource', arguments['--inheritFrom'], arguments['--property'], arguments['--mock'])
     elif arguments['publish_batch']:
         client.publish_batch(arguments['--tsv'], arguments['--siteId'], arguments['--user'], arguments['--projectCode'], arguments['--domain'], arguments['--mock'])
     else:
-        raise RuntimeError("Command must be one of: query, publish, publish_batch or merge")
+        raise RuntimeError("Command must be one of: publish, publish_batch")

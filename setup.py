@@ -34,9 +34,6 @@ setup(
     author="Ben Bimber",
     author_email='bimber@ohsu.edu',
     url='https://github.com/ohsu-computational-biology/ccc_import',
-    packages=[
-        'ccc_import',
-    ],
     include_package_data=True,
     install_requires=requirements,
     license="BSD",
