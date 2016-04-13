@@ -19,6 +19,6 @@ automatically de-normalize fields (i.e. apply all attributes of that patient to 
 
 How To Install:
 
-Until a release on PyPi, you can install this tool with:
+Until a release is on PyPi, you can install this tool with:
 
-    pip install git+git://github.com/ohsu-computational-biology/ccc_import
+    pip install --process-dependency-links git+git://github.com/ohsu-computational-biology/ccc_import

@@ -37,8 +37,6 @@ setup(
     packages=[
         'ccc_import',
     ],
-    package_dir={'ccc_import':
-                 'ccc_import'},
     include_package_data=True,
     install_requires=requirements,
     license="BSD",
@@ -58,6 +56,6 @@ setup(
     tests_require=test_requirements,
     dependency_links = [
         #TODO: this should only be temporary until we have a better location for the module
-        'https://github.com/ohsu-computational-biology/ccc_client'
+        'https://github.com/ohsu-computational-biology/ccc_client/tarball/master'
     ]
 )
