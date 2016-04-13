@@ -1,17 +1,8 @@
-# ccc_import
+# CCC Import Tool
 
 This a command line client for CCC.  The overall idea is to provide a lightweight
 utility to facilitate import/registration of data with the CCC.  This could be run interactively,
 scripted or as part of a workflow.
-
-
-Run the following to see a list of supported options:
-
-ccc_import -h
-
-For example:
-
-CCC Command Line Client.
 
 Usage:
 
