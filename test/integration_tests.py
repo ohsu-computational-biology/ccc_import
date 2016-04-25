@@ -13,11 +13,10 @@ dir_path = os.path.dirname(path)
 dir_path = os.path.dirname(dir_path)
 sys.path.append(dir_path)
 
-import ccc_client
 
 class TestCccClient(unittest.TestCase):
 
-    def test_integration_resource_registration(self):
+    def test_resource_registration(self):
         print("testing single resource registration...")
 
         sampleName = 'sample1'
@@ -46,7 +45,7 @@ class TestCccClient(unittest.TestCase):
             self.assertEqual(results['propToCopy'], 'NotNull')
 
 
-    def test_integration_copy_properties(self):
+    def test_copy_properties(self):
         print("testing copying properties...")
 
         sampleName = 'sample2'
@@ -98,30 +97,6 @@ class TestCccClient(unittest.TestCase):
               ])
 
         print('published sample: ' + sampleId)
-
-
-    def test_unit_index_names(self):
-        token = self.generateAuthToken()
-        ccc = ElasticSearchRunner(None, None, token)
-        rp = ElasticSearchRunner.RowParser(None, self.getSiteId(), self.getUser(), self.getProject(), 'resource', None, ccc.DomainDescriptors, token, True)
-
-        #index names
-        self.assertEqual(rp.getIndexNameForDomain('resource'), self.getProject().lower() + '-' + 'aggregated-resource')
-        self.assertEqual(rp.getIndexNameForDomain('sample'), self.getProject().lower() + '-' + 'sample')
-        self.assertEqual(rp.getIndexNameForDomain('specimen'), self.getProject().lower() + '-' + 'specimen')
-        self.assertEqual(rp.getIndexNameForDomain('individual'), self.getProject().lower() + '-' + 'individual')
-
-        #row keys
-        rowMap = {
-            'individual_id': 'PATIENT1',
-            'specimen_id': 'specImen1',
-            'sample_id': 'saMple1',
-            'ccc_did': 'ccc_did'
-        }
-        self.assertEqual(rp.generateKeyForDomain(rowMap, 'resource'), 'ccc_did')
-        self.assertEqual(rp.generateKeyForDomain(rowMap, 'sample'), self.getProject().lower() + '-' + 'sample' + '-sample1')
-        self.assertEqual(rp.generateKeyForDomain(rowMap, 'specimen'), self.getProject().lower() + '-' + 'specimen-specimen1')
-        self.assertEqual(rp.generateKeyForDomain(rowMap, 'individual'), self.getProject().lower() + '-' + 'individual-patient1')
 
 
     def generateAuthToken(self):

@@ -24,6 +24,7 @@ Oprions:
     --property <ATTR>                                One or more fields to apply to the incoming resource.  The values should be supplied in the form "FieldName:Value".
     -m --mock                                        Perform a mock operation, which runs your input through the normal code path, but outputs the JSON that would otherwise be posted to elasticsearch, without actually sending it
 
+    Note: the environment variable ELASTIC_SEARCH must be set with the URL to your ES server
 """
 
 import sys, os
@@ -32,8 +33,11 @@ import ccc_client
 
 if __name__ == "__main__":
     arguments = docopt(__doc__, version="CCC Command Line Client {0}".format(0.1), options_first=False)
-    #TODO: consider reading host/port from command line or using environment vars
-    client = ElasticSearchRunner(None, None, arguments['--token'])
+
+    if "ELASTIC_SEARCH" not in os.environ:
+        raise RuntimeError("ELASTIC_SEARCH environment variable not set")
+
+    client = ElasticSearchRunner(os.environ['ELASTIC_SEARCH'], None, arguments['--token'])
 
     if arguments['publish_resource']:
         client.publish_resource(arguments['--filePath'], arguments['--siteId'], arguments['--user'], arguments['--projectCode'], arguments['--workflowId'], arguments['--mimeType'], 'resource', arguments['--inheritFrom'], arguments['--property'], arguments['--mock'])
