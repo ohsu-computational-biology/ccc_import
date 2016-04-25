@@ -37,7 +37,7 @@ if __name__ == "__main__":
     if "ELASTIC_SEARCH" not in os.environ:
         raise RuntimeError("ELASTIC_SEARCH environment variable not set")
 
-    client = ElasticSearchRunner(os.environ['ELASTIC_SEARCH'], None, arguments['--token'])
+    client = ccc_client.ElasticSearchRunner(os.environ['ELASTIC_SEARCH'], None, arguments['--authToken'])
 
     if arguments['publish_resource']:
         client.publish_resource(arguments['--filePath'], arguments['--siteId'], arguments['--user'], arguments['--projectCode'], arguments['--workflowId'], arguments['--mimeType'], 'resource', arguments['--inheritFrom'], arguments['--property'], arguments['--mock'])
