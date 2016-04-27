@@ -22,3 +22,5 @@ How To Install:
 Until a release is on PyPi, you can install this tool with:
 
     pip install --process-dependency-links git+git://github.com/ohsu-computational-biology/ccc_import
+
+Note: you need to install the ccc_client prior to using this tool (https://github.com/ohsu-computational-biology/ccc_client/blob/master/INSTALL.txt).
