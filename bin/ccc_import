@@ -11,7 +11,7 @@ Usage:
 Oprions:
     -h, --help                                       Show this screen.
     -v, --version                                    Show version.
-    -t <AUTH_TOKEN>, --authToken=<AUTH_TOKEN>                      The token that will be used when POSTing to elastic search and central function
+    -t <AUTH_TOKEN>, --authToken=<AUTH_TOKEN>        The token that will be used when POSTing to elastic search and central function.  It can be either the full string, or a filepath to a file holding this string
     -d <DOMAIN>, --domain=<DOMAIN>                   When querying, the target domain.  Allowable values are: individual, specimen, sample, resource.
     -t <TSV>, --tsv=<TSV>                            The input tab delimited file
     -s <SITE_ID>, --siteId=<SITE_ID>                 The site ID to be used when publishing results
