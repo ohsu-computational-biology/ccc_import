@@ -3,7 +3,7 @@
 """
 CCC Import Command Line Client.
 Usage:
-    ccc_import publish_batch --authToken=<AUTH_TOKEN> --tsv=<TSV> --siteId=<SITE_ID> --user=<USER> --projectCode=<PROJECT_NAME> --domain=<DOMAIN> [--mock] [--domainJson]
+    ccc_import publish_batch --authToken=<AUTH_TOKEN> --tsv=<TSV> --siteId=<SITE_ID> --user=<USER> --projectCode=<PROJECT_NAME> --domain=<DOMAIN> [--mock] [--domainJson=<FILE>]
     ccc_import publish_resource --authToken=<AUTH_TOKEN> --filePath=<FILE> --siteId=<SITE_ID> --user=<USER> --projectCode=<PROJECT_NAME> --workflowId=<WORKFLOW_ID> --mimeType=<MIME_TYPE> [--inheritFrom=<CCC_DID>] --property <ATTR>... [--mock]
     ccc_import (-h | --help)
     ccc_import --version
@@ -23,7 +23,7 @@ Oprions:
     --inheritFrom <CCC_DID>                          If provided, the fields of this existing record will be queried and applied to the incoming resource.  Any values provided using --property will override these.
     --property <ATTR>                                One or more fields to apply to the incoming resource.  The values should be supplied in the form "FieldName:Value".
     -m --mock                                        Perform a mock operation, which runs your input through the normal code path, but outputs the JSON that would otherwise be posted to elasticsearch, without actually sending it
-    -j --domainJson                                  Optional.  This is the path to an alternate file describing the domains/fields to use for import.
+    -j --domainJson <FILE>                           Optional.  This is the path to an alternate file describing the domains/fields to use for import.
 
     Note: the environment variable ELASTIC_SEARCH must be set with the URL to your ES server
 """
