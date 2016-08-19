@@ -1,3 +1,7 @@
+# _This repo is no longer being actively maintained. Please use the [ccc_client](https://github.com/ohsu-computational-biology/ccc_client) instead._
+
+--
+
 # CCC Import Tool
 
 This a command line client for CCC.  The overall idea is to provide a lightweight
